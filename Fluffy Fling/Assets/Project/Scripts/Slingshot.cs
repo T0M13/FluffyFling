@@ -5,6 +5,7 @@ using UnityEngine;
 public class Slingshot : MonoBehaviour
 {
     private InputManager inputManager;
+    [SerializeField] private BirdsManager birdsManager;
 
     [Header("Finger Settings")]
     [SerializeField] private float radiusThreshhold = 1.2f;
@@ -13,17 +14,20 @@ public class Slingshot : MonoBehaviour
     [SerializeField] private Vector2 endPosition;
     private Camera mainCamera;
     [SerializeField] private LineRenderer trajectory;
+    [SerializeField] private LineRenderer lastBirdTrail;
 
     [Header("Slingshot Settings")]
     [SerializeField] private Transform birdRestPosition;
     [SerializeField] private GameObject bird;
     [SerializeField] private float throwSpeed = 7f;
     [SerializeField] private float throwThreshhold = 0.5f;
+    [SerializeField] private float reloadTime = 2f;
     [SerializeField] private float pullThreshhold = 2.5f;
     [SerializeField] private bool isPulling;
     [SerializeField] private SlingshotState state;
     [SerializeField] private Vector3 birdInitialPosition;
     [SerializeField] private Vector3 pullStartPosition;
+    [SerializeField] private float lastPullTrajectory;
 
     public SlingshotState State { get => state; set => state = value; }
 
@@ -31,13 +35,16 @@ public class Slingshot : MonoBehaviour
     {
         mainCamera = Camera.main;
         inputManager = InputManager.instance;
-        trajectory = GetComponent<LineRenderer>();
+        birdsManager = FindObjectOfType<BirdsManager>();
     }
+
     private void Start()
     {
         currentPosition = Vector2.zero;
         state = SlingshotState.Idle;
-        birdInitialPosition = bird.transform.position;
+        StartCoroutine(TryGetNextBird(0));
+        InitializeThrow();
+
     }
 
     private void OnEnable()
@@ -55,7 +62,6 @@ public class Slingshot : MonoBehaviour
     private void SwipeStart(Vector2 position)
     {
         startPosition = position;
-        InitializeThrow();
         if (IsBirdClicked())
         {
             pullStartPosition = startPosition;
@@ -68,6 +74,7 @@ public class Slingshot : MonoBehaviour
     {
         isPulling = false;
         endPosition = position;
+        state = SlingshotState.Idle;
     }
 
 
@@ -121,11 +128,14 @@ public class Slingshot : MonoBehaviour
 
             bird.transform.position = birdInitialPosition + pullDirection.normalized * pullDistance;
 
-            float pullTrajectory = Vector3.Distance(birdInitialPosition, bird.transform.position);
+            lastPullTrajectory = Vector3.Distance(birdInitialPosition, bird.transform.position);
 
             float distance = Vector3.Distance(bird.transform.position, birdInitialPosition);
             if (distance > throwThreshhold)
-                ShowTrajectory(pullTrajectory);
+            {
+                SetTrajectoryActive(true);
+                CalculateTrajectory(lastPullTrajectory, trajectory);
+            }
             else
                 SetTrajectoryActive(false);
 
@@ -149,13 +159,32 @@ public class Slingshot : MonoBehaviour
 
     private void ThrowBird(float distance)
     {
+        CalculateTrajectory(lastPullTrajectory, lastBirdTrail);
+        SetLastBirdTrailActive(true);
+        isPulling = false;
         Vector3 velocity = (birdInitialPosition - bird.transform.position).normalized;
         bird.GetComponent<Bird>().OnThrow();
         bird.GetComponent<Rigidbody>().velocity = velocity * throwSpeed * distance;
         bird.GetComponent<Rigidbody>().useGravity = true;
+        birdsManager.RemoveBird(bird);
         bird = null;
-        state = SlingshotState.Idle;
+        StartCoroutine(TryGetNextBird(reloadTime));
+    }
 
+    public IEnumerator TryGetNextBird(float time)
+    {
+        yield return new WaitForSeconds(time);
+        if (birdsManager.SpawnedBirds.Count > 0)
+        {
+            bird = birdsManager.GetFirstBird();
+            InitializeThrow();
+            CameraAddTarget(bird);
+        }
+    }
+
+    private void CameraAddTarget(GameObject bird)
+    {
+        mainCamera.GetComponent<FollowCamera>().Target = bird.transform;
     }
 
     private void SetTrajectoryActive(bool active)
@@ -163,9 +192,14 @@ public class Slingshot : MonoBehaviour
         trajectory.enabled = active;
     }
 
-    private void ShowTrajectory(float distance)
+    private void SetLastBirdTrailActive(bool active)
     {
-        SetTrajectoryActive(true);
+        lastBirdTrail.enabled = active;
+    }
+
+    private void CalculateTrajectory(float distance, LineRenderer lineRenderer)
+    {
+
         Vector3 diff = birdInitialPosition - bird.transform.position;
         int segmentCount = 25;
         Vector2[] segments = new Vector2[segmentCount];
@@ -179,11 +213,12 @@ public class Slingshot : MonoBehaviour
             segments[i] = segments[0] + segVelocity * timeCurve + 0.5f * (Vector2)Physics.gravity * (timeCurve * timeCurve);
         }
 
-        trajectory.positionCount = segmentCount;
+        lineRenderer.positionCount = segmentCount;
         for (int j = 0; j < segmentCount; j++)
         {
-            trajectory.SetPosition(j, segments[j]);
+            lineRenderer.SetPosition(j, segments[j]);
         }
+
     }
 
 

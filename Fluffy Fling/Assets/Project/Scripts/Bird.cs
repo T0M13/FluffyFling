@@ -6,17 +6,18 @@ public class Bird : MonoBehaviour
     [SerializeField] private BirdState state;
 
     public BirdState State { get => state; set => state = value; }
+    public Rigidbody Body { get => body; set => body = value; }
 
     private void Start()
     {
-        body = GetComponent<Rigidbody>();
-        body.isKinematic = true;
+        Body = GetComponent<Rigidbody>();
+        Body.isKinematic = true;
         State = BirdState.BeforeThrown;
     }
 
     public void OnThrow()
     {
-        body.isKinematic = false;
+        Body.isKinematic = false;
         State = BirdState.Thrown;
     }
 
