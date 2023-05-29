@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     //[SerializeField] private UIManager uIManager;
     [Header("Game")]
     [SerializeField] private bool gameOver;
+    [SerializeField] private int score;
     //[Header("Player Stats")]
     [Header("Save/Load")]
     [SerializeField] private SaveComponent saveBehaviour;
@@ -32,8 +33,6 @@ public class GameManager : MonoBehaviour
         OnSave += Save;
         OnLoad += Load;
         OnGameOver += CallGameOver;
-
-        OnReload += ReloadSlingshot;
     }
 
     private void OnDisable()
@@ -41,8 +40,6 @@ public class GameManager : MonoBehaviour
         OnSave -= Save;
         OnLoad -= Load;
         OnGameOver -= CallGameOver;
-
-        OnReload -= ReloadSlingshot;
 
     }
 
@@ -66,9 +63,9 @@ public class GameManager : MonoBehaviour
         //    uIManager = FindObjectOfType<UIManager>();
     }
 
-    private void ReloadSlingshot()
+    public void AddScore(int score)
     {
-
+        this.score += score;
     }
 
     private void CallGameOver()
@@ -77,7 +74,6 @@ public class GameManager : MonoBehaviour
         GameOver = true;
         Debug.Log("Game Over");
     }
-
 
     private void RestartGame()
     {

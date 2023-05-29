@@ -109,7 +109,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8014345445313991501}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 14, y: -2.59, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -137,6 +137,10 @@ MonoBehaviour:
   damageMultiplier: 1.1
   fallThresshold: -10
   fallDamage: 10
+  collisionVelocity: 0
+  scoreMin: 50
+  scoreMax: 300
+  scoreIncrement: 50
 --- !u!65 &8014345445313991502
 BoxCollider:
   m_ObjectHideFlags: 0

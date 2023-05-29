@@ -1,6 +1,8 @@
 public enum BirdState
 {
     BeforeThrown,
-    Thrown
+    Loaded,
+    Thrown,
+    Dead
 }
 

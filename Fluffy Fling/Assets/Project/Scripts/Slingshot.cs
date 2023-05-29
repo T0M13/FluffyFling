@@ -203,15 +203,20 @@ public class Slingshot : MonoBehaviour
         if (birdsManager.SpawnedBirds.Count > 0)
         {
             bird = birdsManager.GetFirstBird();
+            Bird birdCode = bird.GetComponent<Bird>();
+            birdCode.OnLoaded();
             InitializeThrow();
-            CameraAddTarget(bird);
         }
     }
 
-    private void CameraAddTarget(GameObject bird)
-    {
-        mainCamera.GetComponent<FollowCamera>().Target = bird.transform;
-    }
+    //public void CameraAddTarget(GameObject bird, BirdState state)
+    //{
+    //    if (mainCamera.GetComponent<FollowCamera>())
+    //    {
+    //        FollowCamera cam = mainCamera.GetComponent<FollowCamera>();
+    //        cam.SetTarget(bird, state);
+    //    }
+    //}
 
     private void SetTrajectoryActive(bool active)
     {
