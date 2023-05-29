@@ -31,6 +31,7 @@ public class Slingshot : MonoBehaviour
     [SerializeField] private Vector3 birdInitialPosition;
     [SerializeField] private Vector3 pullStartPosition;
     [SerializeField] private float lastPullTrajectory;
+    [SerializeField] private int trajectoryLength = 25;
 
     public SlingshotState State { get => state; set => state = value; }
 
@@ -226,8 +227,9 @@ public class Slingshot : MonoBehaviour
     {
 
         Vector3 diff = birdInitialPosition - bird.transform.position;
-        int segmentCount = 25;
+        int segmentCount = trajectoryLength;
         Vector2[] segments = new Vector2[segmentCount];
+
         segments[0] = bird.transform.position;
 
         Vector2 segVelocity = diff.normalized * throwSpeed * distance;
@@ -243,7 +245,6 @@ public class Slingshot : MonoBehaviour
         {
             lineRenderer.SetPosition(j, segments[j]);
         }
-
     }
 
 
