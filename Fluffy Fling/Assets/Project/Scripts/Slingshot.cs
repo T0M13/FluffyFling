@@ -4,7 +4,13 @@ using UnityEngine;
 
 public class Slingshot : MonoBehaviour
 {
+    [Header("References")]
     private InputManager inputManager;
+    private Camera mainCamera;
+    [SerializeField] private LineRenderer trajectory;
+    [SerializeField] private LineRenderer lastBirdTrail;
+    [SerializeField] private Transform leftRubberOrigin, rightRubberOrigin;
+    [SerializeField] private LineRenderer leftRubber, rightRubber;
     [SerializeField] private BirdsManager birdsManager;
 
     [Header("Finger Settings")]
@@ -12,9 +18,6 @@ public class Slingshot : MonoBehaviour
     [SerializeField] private Vector2 startPosition;
     [SerializeField] private Vector2 currentPosition;
     [SerializeField] private Vector2 endPosition;
-    private Camera mainCamera;
-    [SerializeField] private LineRenderer trajectory;
-    [SerializeField] private LineRenderer lastBirdTrail;
 
     [Header("Slingshot Settings")]
     [SerializeField] private Transform birdRestPosition;
@@ -44,7 +47,7 @@ public class Slingshot : MonoBehaviour
         state = SlingshotState.Idle;
         StartCoroutine(TryGetNextBird(0));
         InitializeThrow();
-
+        SetRubber();
     }
 
     private void OnEnable()
@@ -64,6 +67,7 @@ public class Slingshot : MonoBehaviour
         startPosition = position;
         if (IsBirdClicked())
         {
+            SetRubberActive(true);
             pullStartPosition = startPosition;
             state = SlingshotState.Pulling;
             isPulling = true;
@@ -90,6 +94,25 @@ public class Slingshot : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(startPosition, radiusThreshhold);
         Gizmos.DrawLine(startPosition, currentPosition);
+    }
+
+    private void SetRubber()
+    {
+        leftRubber.SetPosition(0, leftRubberOrigin.position);
+        rightRubber.SetPosition(0, rightRubberOrigin.position);
+    }
+
+    private void SetRubberActive(bool active)
+    {
+        leftRubber.enabled = active;
+        rightRubber.enabled = active;
+    }
+
+    private void DisplayRubber()
+    {
+        if (bird == null) return;
+        leftRubber.SetPosition(1, bird.transform.position);
+        rightRubber.SetPosition(1, bird.transform.position);
     }
 
     private bool IsBirdClicked()
@@ -122,6 +145,7 @@ public class Slingshot : MonoBehaviour
         if (bird == null) return;
         if (isPulling)
         {
+            DisplayRubber();
             Vector3 pullPosition = currentPosition;
             Vector3 pullDirection = pullPosition - pullStartPosition;
             float pullDistance = Mathf.Clamp(pullDirection.magnitude, 0f, pullThreshhold);
@@ -162,6 +186,7 @@ public class Slingshot : MonoBehaviour
         CalculateTrajectory(lastPullTrajectory, lastBirdTrail);
         SetLastBirdTrailActive(true);
         isPulling = false;
+        SetRubberActive(false);
         Vector3 velocity = (birdInitialPosition - bird.transform.position).normalized;
         bird.GetComponent<Bird>().OnThrow();
         bird.GetComponent<Rigidbody>().velocity = velocity * throwSpeed * distance;
