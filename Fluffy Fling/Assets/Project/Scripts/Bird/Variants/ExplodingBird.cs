@@ -18,6 +18,15 @@ public class ExplodingBird : Bird
         Ability();
     }
 
+    public override void AutomaticAbility()
+    {
+        if (state != BirdState.Thrown) return;
+        if (abilityActivated) return;
+        if (hasCollided) return;
+        abilityActivated = true;
+        Ability();
+    }
+
     private void Ability()
     {
         Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
@@ -29,7 +38,8 @@ public class ExplodingBird : Bird
                 Vector3 direction = (rb.transform.position - transform.position).normalized;
                 rb.AddForce(direction * explosionForce, ForceMode.Impulse);
             }
-            if (collider.gameObject.GetComponent<DamageableEntity>()){
+            if (collider.gameObject.GetComponent<DamageableEntity>())
+            {
                 collider.gameObject.GetComponent<DamageableEntity>().TakeDamage(explosionDamage);
             }
             if (collider.gameObject.GetComponent<EnemyEntity>())

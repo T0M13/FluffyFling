@@ -109,6 +109,15 @@ public class Bird : MonoBehaviour
         abilityActivated = true;
     }
 
+    public virtual void AutomaticAbility()
+    {
+        if (state != BirdState.Thrown) return;
+        if (abilityActivated) return;
+        if (hasCollided) return;
+        Debug.Log("Activating Ability");
+        abilityActivated = true;
+    }
+
     public void OnLoaded()
     {
         State = BirdState.Loaded;
@@ -128,6 +137,7 @@ public class Bird : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        AutomaticAbility();
         hasCollided = true;
         coll.center = colliderOffset;
         animationState = 9; //Die Animation

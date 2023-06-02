@@ -2918,11 +2918,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Crate
       objectReference: {fileID: 0}
-    - target: {fileID: 8014345445313991504, guid: 3451efa3c21a70447a6224a36ef937e9,
-        type: 3}
-      propertyPath: m_Mass
-      value: 10
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3451efa3c21a70447a6224a36ef937e9, type: 3}
 --- !u!1 &6285930390355157301
@@ -3027,11 +3022,6 @@ PrefabInstance:
       propertyPath: birdsManager
       value: 
       objectReference: {fileID: 2074960538}
-    - target: {fileID: 7862143338396148033, guid: 5f7bdb0ea2b245d4d90744a98810ead7,
-        type: 3}
-      propertyPath: radiusThreshhold
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 7862143338396148034, guid: 5f7bdb0ea2b245d4d90744a98810ead7,
         type: 3}
       propertyPath: mainCamera
@@ -3145,29 +3135,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8327246159433510765, guid: 602d5eb2ae2e3134a812aa2d7173d67f,
-        type: 3}
-      propertyPath: birdPrefabs.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8327246159433510765, guid: 602d5eb2ae2e3134a812aa2d7173d67f,
-        type: 3}
-      propertyPath: birdPrefabs.Array.data[0]
-      value: 
-      objectReference: {fileID: 4607498535882695146, guid: 89d33b372557bb242a9f65bd7b7fdbbe,
-        type: 3}
-    - target: {fileID: 8327246159433510765, guid: 602d5eb2ae2e3134a812aa2d7173d67f,
-        type: 3}
-      propertyPath: birdPrefabs.Array.data[1]
-      value: 
-      objectReference: {fileID: 4607498535882695146, guid: 4b16ce99f6857a74f97a3c7e19f8afd2,
-        type: 3}
-    - target: {fileID: 8327246159433510765, guid: 602d5eb2ae2e3134a812aa2d7173d67f,
-        type: 3}
-      propertyPath: birdPrefabs.Array.data[2]
-      value: 
-      objectReference: {fileID: 4607498535882695146, guid: a03cc7f24d9e40d46b162ce8a98dd2ae,
-        type: 3}
     - target: {fileID: 8327246159433510766, guid: 602d5eb2ae2e3134a812aa2d7173d67f,
         type: 3}
       propertyPath: m_Name

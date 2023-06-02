@@ -1092,12 +1092,13 @@ MonoBehaviour:
   leftRubber: {fileID: 7862143338210285464}
   rightRubber: {fileID: 7862143337020344123}
   birdsManager: {fileID: 0}
-  radiusThreshhold: 0.8
+  radiusThreshhold: 0.5
   startPosition: {x: 0, y: 0}
   currentPosition: {x: 0, y: 0}
   endPosition: {x: 0, y: 0}
   birdRestPosition: {fileID: 7862143338082617902}
   bird: {fileID: 0}
+  lastThrowBird: {fileID: 0}
   throwSpeed: 7
   throwThreshhold: 1
   reloadTime: 1
