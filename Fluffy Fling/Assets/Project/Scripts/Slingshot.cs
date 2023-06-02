@@ -7,6 +7,7 @@ public class Slingshot : MonoBehaviour
     [Header("References")]
     private InputManager inputManager;
     private Camera mainCamera;
+    private FollowCamera followCamera;
     [SerializeField] private LineRenderer trajectory;
     [SerializeField] private LineRenderer lastBirdTrail;
     [SerializeField] private Transform leftRubberOrigin, rightRubberOrigin;
@@ -38,6 +39,7 @@ public class Slingshot : MonoBehaviour
     private void Awake()
     {
         mainCamera = Camera.main;
+        followCamera = mainCamera.GetComponent<FollowCamera>();
         inputManager = InputManager.instance;
         birdsManager = FindObjectOfType<BirdsManager>();
     }
@@ -152,7 +154,8 @@ public class Slingshot : MonoBehaviour
             float pullDistance = Mathf.Clamp(pullDirection.magnitude, 0f, pullThreshhold);
 
             bird.transform.position = birdInitialPosition + pullDirection.normalized * pullDistance;
-
+            state = SlingshotState.Pulling;
+            SetCameraTarget(bird, state);
             lastPullTrajectory = Vector3.Distance(birdInitialPosition, bird.transform.position);
 
             float distance = Vector3.Distance(bird.transform.position, birdInitialPosition);
@@ -168,10 +171,13 @@ public class Slingshot : MonoBehaviour
         else
         {
             SetTrajectoryActive(false);
+            state = SlingshotState.Idle;
+            SetCameraTarget(bird, state);
             float distance = Vector3.Distance(bird.transform.position, birdInitialPosition);
             if (distance > throwThreshhold)
             {
                 state = SlingshotState.Flying;
+                SetCameraTarget(bird, state);
                 ThrowBird(distance);
             }
             else
@@ -197,6 +203,13 @@ public class Slingshot : MonoBehaviour
         StartCoroutine(TryGetNextBird(reloadTime));
     }
 
+    public GameObject GetCurrentBird()
+    {
+        if (bird != null)
+            return bird;
+        else return null;
+    }
+
     public IEnumerator TryGetNextBird(float time)
     {
         yield return new WaitForSeconds(time);
@@ -209,14 +222,10 @@ public class Slingshot : MonoBehaviour
         }
     }
 
-    //public void CameraAddTarget(GameObject bird, BirdState state)
-    //{
-    //    if (mainCamera.GetComponent<FollowCamera>())
-    //    {
-    //        FollowCamera cam = mainCamera.GetComponent<FollowCamera>();
-    //        cam.SetTarget(bird, state);
-    //    }
-    //}
+    public void SetCameraTarget(GameObject bird, SlingshotState state)
+    {
+        followCamera.SetTarget(bird, state);
+    }
 
     private void SetTrajectoryActive(bool active)
     {

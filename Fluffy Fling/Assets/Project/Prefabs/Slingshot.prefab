@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8216679713061944043}
   - component: {fileID: 8931547486128537821}
   - component: {fileID: 8237650053077934786}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Ring_big_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 7433028923257101681}
   - component: {fileID: 5987476844406362340}
   - component: {fileID: 8830116506426747669}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Body_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 5394307960324266725}
   - component: {fileID: 2306595729828353326}
   - component: {fileID: 4740486850466024775}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cloth_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -258,7 +258,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3480778670853644119}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: SlingshotMesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -300,7 +300,7 @@ GameObject:
   - component: {fileID: 6450888597116497279}
   - component: {fileID: 3577218083909576619}
   - component: {fileID: 1283407285509637387}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Rings_small_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -382,7 +382,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7862143337020344122}
   - component: {fileID: 7862143337020344123}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: RightRubber
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -512,7 +512,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7862143337080528205}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: LeftSide
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -543,7 +543,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7862143337833846355}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -575,7 +575,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7862143337834817843}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: RightSide
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -607,7 +607,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7862143338067624681}
   - component: {fileID: 7862143338067624682}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: AimTrajectory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -737,7 +737,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7862143338082617902}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: BirdRestPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -769,7 +769,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7862143338092489641}
   - component: {fileID: 7862143338092489642}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: LastTrajectory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -900,7 +900,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7862143338210285415}
   - component: {fileID: 7862143338210285464}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: LeftRubber
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1033,7 +1033,7 @@ GameObject:
   - component: {fileID: 7862143338396148034}
   - component: {fileID: 7862143338396148033}
   - component: {fileID: 7862143338396148035}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Slingshot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1163,7 +1163,7 @@ GameObject:
   - component: {fileID: 7911262691466302113}
   - component: {fileID: 4144547761184891086}
   - component: {fileID: 2753369493389509146}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Rubber_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}

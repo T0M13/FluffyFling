@@ -11,6 +11,9 @@ public class Bird : MonoBehaviour
     [SerializeField] private int animationState;
     [SerializeField] private int[] animationMaxStates;
     [SerializeField] private float deathDelay = 1f;
+    [SerializeField] private float fallThresshold = -10f;
+    [SerializeField] private bool hasCollided;
+    [SerializeField] private float timerTillDeath = 3f;
     [SerializeField] private BirdState state;
     [SerializeField] private Vector3 colliderOffset = new Vector3(-0.25f, 0, 0);
 
@@ -30,9 +33,15 @@ public class Bird : MonoBehaviour
 
     private void Update()
     {
-        if (state == BirdState.Thrown && body.velocity == Vector3.zero)
+        if ((state == BirdState.Thrown && body.velocity == Vector3.zero) || (transform.position.y < fallThresshold))
         {
             Disappear();
+        }
+        if (state == BirdState.Thrown && hasCollided && body.velocity != Vector3.zero)
+        {
+            timerTillDeath -= Time.deltaTime;
+            if (timerTillDeath <= 0)
+                Disappear();
         }
     }
 
@@ -49,6 +58,7 @@ public class Bird : MonoBehaviour
 
     private IEnumerator Die(float deathDelay)
     {
+        GameManager.instance.OnDeath?.Invoke(gameObject);
         yield return new WaitForSeconds(deathDelay);
         Destroy(gameObject);
     }
@@ -69,6 +79,7 @@ public class Bird : MonoBehaviour
     {
         State = BirdState.Loaded;
         SetAnimation(0);
+        //GameManager.instance.OnLoaded?.Invoke(gameObject, State);
         //parent.CameraAddTarget(gameObject, State);
     }
 
@@ -77,11 +88,13 @@ public class Bird : MonoBehaviour
         Body.isKinematic = false;
         State = BirdState.Thrown;
         SetAnimation(14); //Fly Animation
+        //GameManager.instance.OnThrow?.Invoke(gameObject, State);
         //parent.CameraAddTarget(gameObject, State);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
+        hasCollided = true;
         coll.center = colliderOffset;
         animationState = 9; //Die Animation
         animator.SetInteger("animation", animationState);

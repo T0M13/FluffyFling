@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
 
     [Header("References")]
     //[SerializeField] private UIManager uIManager;
+    [SerializeField] private FollowCamera mainCam;
+    [SerializeField] private Slingshot slingshot;
     [Header("Game")]
     [SerializeField] private bool gameOver;
     [SerializeField] private int score;
@@ -28,11 +30,19 @@ public class GameManager : MonoBehaviour
     public Action OnGameOver;
 
 
+    //public Action<GameObject, BirdState> OnThrow;
+    //public Action<GameObject, BirdState> OnLoaded;
+    public Action<GameObject> OnDeath;
+
     private void OnEnable()
     {
         OnSave += Save;
         OnLoad += Load;
         OnGameOver += CallGameOver;
+
+        //OnThrow += ThrowBird;
+        //OnLoaded += LoadedBird;
+        OnDeath += DiedBird;
     }
 
     private void OnDisable()
@@ -40,6 +50,10 @@ public class GameManager : MonoBehaviour
         OnSave -= Save;
         OnLoad -= Load;
         OnGameOver -= CallGameOver;
+
+        //OnThrow -= ThrowBird;
+        //OnLoaded -= LoadedBird;
+        OnDeath -= DiedBird;
 
     }
 
@@ -57,10 +71,9 @@ public class GameManager : MonoBehaviour
         Load();
         Save();
 
+        mainCam = Camera.main.GetComponent<FollowCamera>();
+        slingshot = FindObjectOfType<Slingshot>();
         GameOver = false;
-
-        //if (uIManager == null)
-        //    uIManager = FindObjectOfType<UIManager>();
     }
 
     public void AddScore(int score)
@@ -73,6 +86,28 @@ public class GameManager : MonoBehaviour
         Save();
         GameOver = true;
         Debug.Log("Game Over");
+    }
+
+    //private void ThrowBird(GameObject gameObject, BirdState state)
+    //{
+    //    Debug.Log("I am being thrown");
+    //    mainCam.SetTarget(gameObject, state);
+    //}
+
+    //private void LoadedBird(GameObject gameObject, BirdState state)
+    //{
+    //    Debug.Log("I am being loaded");
+    //            mainCam.SetTarget(gameObject, state);
+    //}
+    private void DiedBird(GameObject gameObject)
+    {
+        gameObject = slingshot.GetCurrentBird();
+        if (gameObject == null)
+        {
+            gameObject = slingshot.gameObject;
+        }
+        mainCam.SetTarget(gameObject, SlingshotState.Idle);
+        Debug.Log("I am being killed");
     }
 
     private void RestartGame()
