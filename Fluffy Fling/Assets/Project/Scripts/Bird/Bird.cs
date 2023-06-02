@@ -62,7 +62,15 @@ public class Bird : MonoBehaviour
 
     private void OnValidate()
     {
-        SetAnimation(animationState);
+        if (Body == null)
+            Body = GetComponent<Rigidbody>();
+        if (coll == null)
+            coll = GetComponent<SphereCollider>();
+        if (animator == null)
+            animator = GetComponentInChildren<Animator>();
+
+        if (animator != null)
+            SetAnimation(animationState);
     }
 
     private void Disappear()
