@@ -3158,6 +3158,12 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 8327246159433510765, guid: 602d5eb2ae2e3134a812aa2d7173d67f,
         type: 3}
+      propertyPath: birdPrefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 4607498535882695146, guid: 4b16ce99f6857a74f97a3c7e19f8afd2,
+        type: 3}
+    - target: {fileID: 8327246159433510765, guid: 602d5eb2ae2e3134a812aa2d7173d67f,
+        type: 3}
       propertyPath: birdPrefabs.Array.data[2]
       value: 
       objectReference: {fileID: 4607498535882695146, guid: a03cc7f24d9e40d46b162ce8a98dd2ae,

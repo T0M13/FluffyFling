@@ -11,7 +11,10 @@ public class FastBird : Bird
 
     public override void ActivateAbility(Vector2 _)
     {
-        base.ActivateAbility(_);
+        if (state != BirdState.Thrown) return;
+        if (abilityActivated) return;
+        if (hasCollided) return;
+        abilityActivated = true;
         Ability();
     }
 

@@ -12,11 +12,11 @@ public class Bird : MonoBehaviour
     [SerializeField] private int[] animationMaxStates;
     [SerializeField] private float deathDelay = 1f;
     [SerializeField] private float fallThresshold = -10f;
-    [SerializeField] private bool hasCollided;
-    [SerializeField] private bool abilityActivated;
+    [SerializeField] protected bool hasCollided;
+    [SerializeField] protected bool abilityActivated;
     [SerializeField] private bool isDead;
     [SerializeField] private float timerTillDeath = 3f;
-    [SerializeField] private BirdState state;
+    [SerializeField] protected BirdState state;
     [SerializeField] private Vector3 colliderOffset = new Vector3(-0.25f, 0, 0);
 
     public BirdState State { get => state; set => state = value; }
