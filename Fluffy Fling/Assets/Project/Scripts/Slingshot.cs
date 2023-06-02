@@ -23,6 +23,7 @@ public class Slingshot : MonoBehaviour
     [Header("Slingshot Settings")]
     [SerializeField] private Transform birdRestPosition;
     [SerializeField] private GameObject bird;
+    [SerializeField] private GameObject lastThrowBird;
     [SerializeField] private float throwSpeed = 7f;
     [SerializeField] private float throwThreshhold = 0.5f;
     [SerializeField] private float reloadTime = 2f;
@@ -35,6 +36,7 @@ public class Slingshot : MonoBehaviour
     [SerializeField] private int trajectoryLength = 25;
 
     public SlingshotState State { get => state; set => state = value; }
+    public GameObject LastThrowBird { get => lastThrowBird; set => lastThrowBird = value; }
 
     private void Awake()
     {
@@ -68,7 +70,7 @@ public class Slingshot : MonoBehaviour
     private void SwipeStart(Vector2 position)
     {
         startPosition = position;
-        if (IsBirdClicked())
+        if (IsBirdClicked() && lastThrowBird == null)
         {
             SetRubberActive(true);
             pullStartPosition = startPosition;
@@ -122,6 +124,7 @@ public class Slingshot : MonoBehaviour
     {
         Collider[] hitObject = Physics.OverlapSphere(startPosition, radiusThreshhold);
         if (hitObject.Length <= 0) return false;
+        if (hitObject.Length > 1) return false;
         else
         {
             if (hitObject[0].gameObject == bird)
@@ -172,7 +175,9 @@ public class Slingshot : MonoBehaviour
         {
             SetTrajectoryActive(false);
             state = SlingshotState.Idle;
-            SetCameraTarget(bird, state);
+            if (LastThrowBird == null)
+                SetCameraTarget(bird, state);
+            if (lastThrowBird != null) return;
             float distance = Vector3.Distance(bird.transform.position, birdInitialPosition);
             if (distance > throwThreshhold)
             {
@@ -190,6 +195,7 @@ public class Slingshot : MonoBehaviour
 
     private void ThrowBird(float distance)
     {
+       
         CalculateTrajectory(lastPullTrajectory, lastBirdTrail);
         SetLastBirdTrailActive(true);
         isPulling = false;
@@ -199,6 +205,7 @@ public class Slingshot : MonoBehaviour
         bird.GetComponent<Rigidbody>().velocity = velocity * throwSpeed * distance;
         bird.GetComponent<Rigidbody>().useGravity = true;
         birdsManager.RemoveBird(bird);
+        LastThrowBird = bird;
         bird = null;
         StartCoroutine(TryGetNextBird(reloadTime));
     }

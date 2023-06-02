@@ -431,7 +431,7 @@ MonoBehaviour:
   targetState: 0
   generalPosition: {x: 0, y: 0, z: 0}
   aimPosition: {x: 0, y: 0, z: 0}
-  maxXLimit: 45
+  maxXLimit: 100
   idleAimValue: 5
   idleOffsetValue: 6
   aimingAimValue: -5
@@ -3027,6 +3027,11 @@ PrefabInstance:
       propertyPath: birdsManager
       value: 
       objectReference: {fileID: 2074960538}
+    - target: {fileID: 7862143338396148033, guid: 5f7bdb0ea2b245d4d90744a98810ead7,
+        type: 3}
+      propertyPath: radiusThreshhold
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7862143338396148034, guid: 5f7bdb0ea2b245d4d90744a98810ead7,
         type: 3}
       propertyPath: mainCamera

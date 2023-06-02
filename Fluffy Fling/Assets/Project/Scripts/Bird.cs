@@ -13,6 +13,8 @@ public class Bird : MonoBehaviour
     [SerializeField] private float deathDelay = 1f;
     [SerializeField] private float fallThresshold = -10f;
     [SerializeField] private bool hasCollided;
+    [SerializeField] private bool abilityActivated;
+    [SerializeField] private bool isDead;
     [SerializeField] private float timerTillDeath = 3f;
     [SerializeField] private BirdState state;
     [SerializeField] private Vector3 colliderOffset = new Vector3(-0.25f, 0, 0);
@@ -21,23 +23,36 @@ public class Bird : MonoBehaviour
     public Rigidbody Body { get => body; set => body = value; }
     public Slingshot Parent { get => parent; set => parent = value; }
 
+
+    private void OnEnable()
+    {
+        InputManager.instance.OnStartTouch += ActivateAbility;
+    }
+
+    private void OnDisable()
+    {
+        InputManager.instance.OnStartTouch -= ActivateAbility;
+    }
+
     private void Start()
     {
         Body = GetComponent<Rigidbody>();
         coll = GetComponent<SphereCollider>();
         animator = GetComponentInChildren<Animator>();
         Body.isKinematic = true;
+        abilityActivated = false;
+        isDead = false;
         State = BirdState.BeforeThrown;
         SetAnimation(GetRandomAnimation());
     }
 
     private void Update()
     {
-        if ((state == BirdState.Thrown && body.velocity == Vector3.zero) || (transform.position.y < fallThresshold))
+        if ((state == BirdState.Thrown && body.velocity == Vector3.zero) && !isDead || (transform.position.y < fallThresshold) && !isDead)
         {
             Disappear();
         }
-        if (state == BirdState.Thrown && hasCollided && body.velocity != Vector3.zero)
+        if (state == BirdState.Thrown && hasCollided && body.velocity != Vector3.zero && !isDead)
         {
             timerTillDeath -= Time.deltaTime;
             if (timerTillDeath <= 0)
@@ -53,12 +68,14 @@ public class Bird : MonoBehaviour
     private void Disappear()
     {
         state = BirdState.Dead;
+        isDead = true;
         StartCoroutine(Die(deathDelay));
     }
 
     private IEnumerator Die(float deathDelay)
     {
         GameManager.instance.OnDeath?.Invoke(gameObject);
+        parent.LastThrowBird = null;
         yield return new WaitForSeconds(deathDelay);
         Destroy(gameObject);
     }
@@ -73,6 +90,15 @@ public class Bird : MonoBehaviour
     {
         animationState = i;
         animator.SetInteger("animation", animationState);
+    }
+
+    public virtual void ActivateAbility(Vector2 _)
+    {
+        if (state != BirdState.Thrown) return;
+        if (abilityActivated) return;
+        if (hasCollided) return;
+        Debug.Log("Activating Ability");
+        abilityActivated = true;
     }
 
     public void OnLoaded()
