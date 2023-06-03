@@ -59,6 +59,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+
         if (instance != null && instance != this)
         {
             Destroy(this.gameObject);
@@ -70,6 +71,8 @@ public class GameManager : MonoBehaviour
 
         Load();
         Save();
+
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;
 
         mainCam = Camera.main.GetComponent<FollowCamera>();
         slingshot = FindObjectOfType<Slingshot>();

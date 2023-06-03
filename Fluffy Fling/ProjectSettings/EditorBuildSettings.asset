@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Project/Scenes/Projectile.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+    path: Assets/Project/Scenes/LevelTest.unity
+    guid: 2264b00e95723a2408e268a8ecf118ca
   m_configObjects: {}
