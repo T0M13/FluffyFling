@@ -5,11 +5,11 @@ using UnityEngine;
 public class Bird : MonoBehaviour
 {
     [SerializeField] private Rigidbody body;
-    [SerializeField] private SphereCollider coll;
+    [SerializeField] protected SphereCollider coll;
     [SerializeField] private Slingshot parent;
     [SerializeField] private Animator animator;
     [SerializeField] private int animationState;
-    [SerializeField] private int[] animationMaxStates;
+    [SerializeField] private int[] animationMaxStates = new int[4] { 1, 2, 3, 13 };
     [SerializeField] private float deathDelay = 1f;
     [SerializeField] private float fallThresshold = -10f;
     [SerializeField] protected bool hasCollided;
@@ -36,6 +36,7 @@ public class Bird : MonoBehaviour
 
     private void Start()
     {
+        BeforeAbility();
         Body = GetComponent<Rigidbody>();
         coll = GetComponent<SphereCollider>();
         animator = GetComponentInChildren<Animator>();
@@ -80,8 +81,20 @@ public class Bird : MonoBehaviour
         StartCoroutine(Die(deathDelay));
     }
 
+    protected virtual void BeforeAbility()
+    {
+        //Sets something before an ability
+    }
+
+    protected virtual void AfterAbility()
+    {
+        //Sets something after an ability
+    }
+
+
     private IEnumerator Die(float deathDelay)
     {
+        AfterAbility();
         GameManager.instance.OnDeath?.Invoke(gameObject);
         parent.LastThrowBird = null;
         yield return new WaitForSeconds(deathDelay);
