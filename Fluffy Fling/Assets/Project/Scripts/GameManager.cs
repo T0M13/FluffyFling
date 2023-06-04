@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour
     [Header("Enemies Left")]
     [SerializeField] private List<GameObject> enemies;
     [SerializeField] private float waitCheckBirds;
+    //[SerializeField] private float timer;
+    //[SerializeField] private float timerCooldown = 5f;
     private Coroutine birdChecking;
     [Header("Save/Load")]
     [SerializeField] private SaveComponent saveBehaviour;
@@ -95,6 +97,16 @@ public class GameManager : MonoBehaviour
     public void RemoveEnemy(GameObject enemy)
     {
         enemies.Remove(enemy);
+    }
+    private void Update()
+    {
+        //if (victory || gameOver) return;
+        //timer -= Time.deltaTime;
+        //if (timer <= 0)
+        //{
+        //    CheckEnemiesLeft();
+        //    timer = timerCooldown;
+        //}
     }
 
     public void CheckEnemiesLeft()
