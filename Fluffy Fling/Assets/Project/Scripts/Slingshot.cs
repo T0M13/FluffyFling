@@ -85,13 +85,13 @@ public class Slingshot : MonoBehaviour
 
     private void SwipeEnd(Vector2 position)
     {
-        isPulling = false;
         endPosition = position;
-        state = SlingshotState.Idle;
-        if (!IsBirdClicked() && !isPulling)
+        if (!IsBirdClicked() && !isPulling && (state == SlingshotState.Idle ))
         {
             CameraSwipe();
         }
+        isPulling = false;
+        state = SlingshotState.Idle;
     }
 
     private void CameraSwipe()
@@ -104,7 +104,7 @@ public class Slingshot : MonoBehaviour
             Debug.DrawLine(startPosition, endPosition, Color.red, 5f);
             Vector3 direction = endPosition - startPosition;
             direction.y = 0;
-            followCamera.MoveToPosition += direction;
+            followCamera.MoveToPosition -= direction;
         }
     }
 
