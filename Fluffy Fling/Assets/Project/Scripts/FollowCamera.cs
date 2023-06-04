@@ -14,11 +14,20 @@ public class FollowCamera : MonoBehaviour
     [SerializeField] private Transform target;
     [SerializeField] private SlingshotState targetState;
 
+    [SerializeField] private bool follow;
+    [SerializeField] private float timerToFollowBack;
+    [SerializeField] private float timerToFollowBackReset = 8f;
+    [SerializeField] private Vector3 moveToPosition;
+    [SerializeField] private Vector3 moveToOffset;
+
     public Transform Target { get => target; set => target = value; }
     public SlingshotState TargetState { get => targetState; set => targetState = value; }
+    public bool Follow { get => follow; set => follow = value; }
+    public Vector3 MoveToPosition { get => moveToPosition; set => moveToPosition = value; }
 
     [SerializeField] private Vector3 generalPosition;
     [SerializeField] private Vector3 aimPosition;
+    [SerializeField] private float minXLimit;
     [SerializeField] private float maxXLimit;
     [SerializeField] private float idleAimValue;
     [SerializeField] private float idleOffsetValue;
@@ -33,9 +42,29 @@ public class FollowCamera : MonoBehaviour
         targetState = state;
     }
 
+    public void ResetTimer()
+    {
+        timerToFollowBack = timerToFollowBackReset;
+    }
+
     private void Update()
     {
         if (target == null) return;
+        if (!Follow)
+        {
+            timerToFollowBack -= Time.deltaTime;
+            moveToPosition.y = moveToOffset.y; // Clamp the y-axis position
+            moveToPosition.z = moveToOffset.z; // Clamp the y-axis position
+            moveToPosition.x = Mathf.Clamp(moveToPosition.x, minXLimit, maxXLimit);
+            transform.position = Vector3.SmoothDamp(transform.position, moveToPosition + moveToOffset, ref velocity, smoothTime);
+            if (timerToFollowBack <= 0)
+            {
+                timerToFollowBack = 0;
+                Follow = true;
+                moveToPosition = Vector3.zero + moveToOffset;
+            }
+            return;
+        }
 
         switch (targetState)
         {

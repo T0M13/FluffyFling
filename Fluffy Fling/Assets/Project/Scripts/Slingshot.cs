@@ -35,6 +35,8 @@ public class Slingshot : MonoBehaviour
     [SerializeField] private float lastPullTrajectory;
     [SerializeField] private int trajectoryLength = 25;
 
+    [SerializeField] private float minimumDistanceSwipe = 1;
+
     public SlingshotState State { get => state; set => state = value; }
     public GameObject LastThrowBird { get => lastThrowBird; set => lastThrowBird = value; }
 
@@ -72,11 +74,13 @@ public class Slingshot : MonoBehaviour
         startPosition = position;
         if (IsBirdClicked() && lastThrowBird == null)
         {
+            followCamera.Follow = true;
             SetRubberActive(true);
             pullStartPosition = startPosition;
             state = SlingshotState.Pulling;
             isPulling = true;
         }
+
     }
 
     private void SwipeEnd(Vector2 position)
@@ -84,6 +88,24 @@ public class Slingshot : MonoBehaviour
         isPulling = false;
         endPosition = position;
         state = SlingshotState.Idle;
+        if (!IsBirdClicked() && !isPulling)
+        {
+            CameraSwipe();
+        }
+    }
+
+    private void CameraSwipe()
+    {
+        // Update the camera position based on the distance between start and end positions
+        if (Vector3.Distance(startPosition, endPosition) >= minimumDistanceSwipe)
+        {
+            followCamera.Follow = false;
+            followCamera.ResetTimer();
+            Debug.DrawLine(startPosition, endPosition, Color.red, 5f);
+            Vector3 direction = endPosition - startPosition;
+            direction.y = 0;
+            followCamera.MoveToPosition += direction;
+        }
     }
 
 
@@ -195,7 +217,7 @@ public class Slingshot : MonoBehaviour
 
     private void ThrowBird(float distance)
     {
-       
+
         CalculateTrajectory(lastPullTrajectory, lastBirdTrail);
         SetLastBirdTrailActive(true);
         isPulling = false;

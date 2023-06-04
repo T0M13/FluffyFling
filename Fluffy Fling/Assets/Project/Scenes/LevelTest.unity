@@ -7703,8 +7703,15 @@ MonoBehaviour:
   velocity: {x: 0, y: 0, z: 0}
   target: {fileID: 0}
   targetState: 0
+  cameraMoveSpeed: 2
+  follow: 0
+  timerToFollowBack: 0
+  timerToFollowBackReset: 7
+  moveToPosition: {x: 0, y: 0, z: 0}
+  moveToOffset: {x: 4, y: 1, z: -9}
   generalPosition: {x: 0, y: 0, z: 0}
   aimPosition: {x: 0, y: 0, z: 0}
+  minXLimit: 0
   maxXLimit: 35
   idleAimValue: 5
   idleOffsetValue: 6
