@@ -12702,6 +12702,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2095444935457604515, guid: 16b0edf8db764544089657a803ecb274,
         type: 3}
+      propertyPath: waitCheckBirds
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2095444935457604515, guid: 16b0edf8db764544089657a803ecb274,
+        type: 3}
       propertyPath: ingameUIManager
       value: 
       objectReference: {fileID: 1521182904}

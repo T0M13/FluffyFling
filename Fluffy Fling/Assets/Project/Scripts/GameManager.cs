@@ -91,22 +91,26 @@ public class GameManager : MonoBehaviour
         ingameUIManager.CurrentScoreUI.text = this.score.ToString();
     }
 
-    public void CheckEnemiesLeft(GameObject enemy)
+    public void RemoveEnemy(GameObject enemy)
     {
         enemies.Remove(enemy);
+    }
+
+    public void CheckEnemiesLeft()
+    {
         if (enemies.Count <= 0)
         {
             Debug.Log("Victory");
         }
         else
         {
+            if(slingshot.GetCurrentBird() == null)
             birdChecking = StartCoroutine(CheckBirdsLeft());
         }
     }
 
     private IEnumerator CheckBirdsLeft()
     {
-
         yield return new WaitForSeconds(waitCheckBirds);
 
         if (birdsManager.SpawnedBirds.Count <= 0)
@@ -146,6 +150,7 @@ public class GameManager : MonoBehaviour
         }
         mainCam.SetTarget(gameObject, SlingshotState.Idle);
         Debug.Log("I am being killed");
+        CheckEnemiesLeft();
     }
 
     private void RestartGame()

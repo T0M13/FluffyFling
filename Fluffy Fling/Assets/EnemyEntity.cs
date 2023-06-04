@@ -87,7 +87,8 @@ public class EnemyEntity : MonoBehaviour
             scorePopUp.transform.SetParent(null);
             scorePopUp.transform.SetPositionAndRotation(transform.position, Quaternion.identity);
             scorePopUp.transform.localScale = Vector3.one;
-            GameManager.instance.CheckEnemiesLeft(gameObject);
+            GameManager.instance.RemoveEnemy(gameObject);
+            GameManager.instance.CheckEnemiesLeft();
             DestroyEntity();
         }
         else
