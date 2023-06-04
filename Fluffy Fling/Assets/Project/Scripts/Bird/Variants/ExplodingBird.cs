@@ -8,6 +8,7 @@ public class ExplodingBird : Bird
     [SerializeField] private float explosionDamage = 100;
     [SerializeField] private float explosionForce = 1000;
     [SerializeField] private float explosionRadius = 4;
+    [SerializeField] private GameObject explosionEffect;
 
     public override void ActivateAbility(Vector2 _)
     {
@@ -30,6 +31,8 @@ public class ExplodingBird : Bird
     private void Ability()
     {
         Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
+        explosionEffect.SetActive(true);
+        explosionEffect.transform.SetParent(null);
         foreach (Collider collider in colliders)
         {
             Rigidbody rb = collider.GetComponent<Rigidbody>();

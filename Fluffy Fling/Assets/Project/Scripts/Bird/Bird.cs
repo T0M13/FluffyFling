@@ -18,6 +18,7 @@ public class Bird : MonoBehaviour
     [SerializeField] private float timerTillDeath = 3f;
     [SerializeField] protected BirdState state;
     [SerializeField] private Vector3 colliderOffset = new Vector3(-0.25f, 0, 0);
+    [SerializeField] private ParticleSystem impactEffect;
 
     public BirdState State { get => state; set => state = value; }
     public Rigidbody Body { get => body; set => body = value; }
@@ -150,6 +151,13 @@ public class Bird : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (impactEffect != null)
+        {
+            ContactPoint contact = collision.contacts[0];
+            impactEffect.transform.position = contact.point;
+            impactEffect.Play();
+        }
+
         AutomaticAbility();
         hasCollided = true;
         coll.center = colliderOffset;

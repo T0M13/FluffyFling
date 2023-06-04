@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private BirdsManager birdsManager;
     [Header("Game")]
     [SerializeField] private bool gameOver;
+    [SerializeField] private bool victory;
     [SerializeField] private int score;
     //[Header("Player Stats")]
     [Header("Enemies Left")]
@@ -98,14 +99,16 @@ public class GameManager : MonoBehaviour
 
     public void CheckEnemiesLeft()
     {
+        if (victory || gameOver) return;
         if (enemies.Count <= 0)
         {
             Debug.Log("Victory");
+            victory = true;
         }
         else
         {
-            if(slingshot.GetCurrentBird() == null)
-            birdChecking = StartCoroutine(CheckBirdsLeft());
+            if (slingshot.GetCurrentBird() == null)
+                birdChecking = StartCoroutine(CheckBirdsLeft());
         }
     }
 
@@ -116,6 +119,7 @@ public class GameManager : MonoBehaviour
         if (birdsManager.SpawnedBirds.Count <= 0)
         {
             Debug.Log("Game Over");
+            gameOver = true;
         }
         else
         {
