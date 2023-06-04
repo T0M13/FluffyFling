@@ -48,6 +48,7 @@ public class BirdsManager : MonoBehaviour
         foreach (GameObject bird in spawnedBirds)
         {
             bird.GetComponent<Bird>().Parent = InputManager.instance.GetComponent<Slingshot>();
+
         }
     }
 

@@ -10,13 +10,18 @@ public class GameManager : MonoBehaviour
     public static GameManager instance { get; private set; }
 
     [Header("References")]
-    //[SerializeField] private UIManager uIManager;
+    [SerializeField] private IngameUIManager ingameUIManager;
     [SerializeField] private FollowCamera mainCam;
     [SerializeField] private Slingshot slingshot;
+    [SerializeField] private BirdsManager birdsManager;
     [Header("Game")]
     [SerializeField] private bool gameOver;
     [SerializeField] private int score;
     //[Header("Player Stats")]
+    [Header("Enemies Left")]
+    [SerializeField] private List<GameObject> enemies;
+    [SerializeField] private float waitCheckBirds;
+    private Coroutine birdChecking;
     [Header("Save/Load")]
     [SerializeField] private SaveComponent saveBehaviour;
     [SerializeField] private LoadComponent loadBehaviour;
@@ -76,12 +81,42 @@ public class GameManager : MonoBehaviour
 
         mainCam = Camera.main.GetComponent<FollowCamera>();
         slingshot = FindObjectOfType<Slingshot>();
+        birdsManager = FindObjectOfType<BirdsManager>();
         GameOver = false;
     }
 
     public void AddScore(int score)
     {
         this.score += score;
+        ingameUIManager.CurrentScoreUI.text = this.score.ToString();
+    }
+
+    public void CheckEnemiesLeft(GameObject enemy)
+    {
+        enemies.Remove(enemy);
+        if (enemies.Count <= 0)
+        {
+            Debug.Log("Victory");
+        }
+        else
+        {
+            birdChecking = StartCoroutine(CheckBirdsLeft());
+        }
+    }
+
+    private IEnumerator CheckBirdsLeft()
+    {
+
+        yield return new WaitForSeconds(waitCheckBirds);
+
+        if (birdsManager.SpawnedBirds.Count <= 0)
+        {
+            Debug.Log("Game Over");
+        }
+        else
+        {
+            //Birds Left to shoot
+        }
     }
 
     private void CallGameOver()

@@ -14,12 +14,14 @@ public class DamageableEntity : MonoBehaviour
     [SerializeField] private float damageMultiplier = 1.1f;
     [SerializeField] private float fallThresshold = -10f;
     [SerializeField] private float fallDamage = 10f;
+    [SerializeField] private float upThresshold = 50f;
+    [SerializeField] private float upDamage = 1000f;
     [SerializeField] private float collisionVelocity;
     [Header("Score")]
     [SerializeField] private int scoreMin = 50;
     [SerializeField] private int scoreMax = 300;
     [SerializeField] private float scoreIncrement = 50;
-
+    [SerializeField] private ScorePopUp scorePopUp;
 
     private void Awake()
     {
@@ -65,6 +67,10 @@ public class DamageableEntity : MonoBehaviour
         {
             TakeDamage(fallDamage);
         }
+        if (transform.position.y > upThresshold)
+        {
+            TakeDamage(upDamage);
+        }
     }
 
     public void TakeDamage(float damage)
@@ -75,6 +81,11 @@ public class DamageableEntity : MonoBehaviour
         {
             int score = Mathf.RoundToInt(Mathf.Lerp(scoreMin, scoreMax, collisionVelocity / scoreIncrement));
             GameManager.instance.AddScore(score);
+            scorePopUp.SetScore(score);
+            scorePopUp.gameObject.SetActive(true);
+            scorePopUp.transform.SetParent(null);
+            scorePopUp.transform.SetPositionAndRotation(transform.position, Quaternion.identity);
+            scorePopUp.transform.localScale = Vector3.one;
             DestroyEntity();
         }
         else
