@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private bool victory;
     [SerializeField] private bool paused;
     [SerializeField] private int score;
+    [SerializeField] private int stars;
     [Header("Scores Needed")]
     [SerializeField] private int oneStarScore;
     [SerializeField] private int twoStarScore;
@@ -168,13 +169,14 @@ public class GameManager : MonoBehaviour
         CalculateStars();
         CalculateScores();
         Save();
+        StartCoroutine(CallGameOverUI(score, stars, victory));
     }
 
-    public void AfterGameOver()
+    private IEnumerator CallGameOverUI(int score, int stars, bool victory)
     {
-        CalculateStars();
-        CalculateScores();
-        Save();
+        yield return new WaitForSeconds(5f);
+        ingameUIManager.ShowGameOverScreen(score, stars, victory);
+        Time.timeScale = 0;
     }
 
     private void CalculateScores()
@@ -190,6 +192,7 @@ public class GameManager : MonoBehaviour
     {
         if (gameOver)
         {
+            stars = 0;
             if (SaveData.PlayerProfile.stars[levelIndex] > 0) return;
             SaveData.PlayerProfile.stars[levelIndex] = 0;
             return;
@@ -197,21 +200,25 @@ public class GameManager : MonoBehaviour
 
         if (score < oneStarScore)
         {
+            stars = 0;
             if (SaveData.PlayerProfile.stars[levelIndex] > 0) return;
             SaveData.PlayerProfile.stars[levelIndex] = 0;
         }
         if (score >= oneStarScore)
         {
+            stars = 1;
             if (SaveData.PlayerProfile.stars[levelIndex] > 1) return;
             SaveData.PlayerProfile.stars[levelIndex] = 1;
         }
         if (score >= twoStarScore)
         {
+            stars = 2;
             if (SaveData.PlayerProfile.stars[levelIndex] > 2) return;
             SaveData.PlayerProfile.stars[levelIndex] = 2;
         }
         if (score >= threeStarScore)
         {
+            stars = 3;
             if (SaveData.PlayerProfile.stars[levelIndex] > 3) return;
             SaveData.PlayerProfile.stars[levelIndex] = 3;
         }
@@ -262,6 +269,19 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         Debug.Log("Restarting");
+    }
+
+    public void NextGame()
+    {
+        if(SceneManager.GetActiveScene().buildIndex + 1 > SceneManager.sceneCount)
+        {
+            SceneManager.LoadScene(1); //LevelSelect
+        }
+        else
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
+
     }
 
     private void Save()
