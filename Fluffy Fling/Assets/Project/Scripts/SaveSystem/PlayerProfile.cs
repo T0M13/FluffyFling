@@ -14,5 +14,8 @@ namespace tomi.SaveSystem
         public int masterVolume;
         public int musicVolume;
         public int effectsVolume;
+
+        public bool musicOn;
+        public bool effectsOn;
     }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using tomi.SaveSystem;
+using tomi.Audio;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -102,7 +103,7 @@ public class GameManager : MonoBehaviour
         birdsManager = FindObjectOfType<BirdsManager>();
         GameOver = false;
 
-
+        if (levelIndex < 0) return;
         savedScore = SaveData.PlayerProfile.scores[levelIndex];
         savedStars = SaveData.PlayerProfile.stars[levelIndex];
 

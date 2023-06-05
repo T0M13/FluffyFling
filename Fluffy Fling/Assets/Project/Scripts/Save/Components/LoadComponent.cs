@@ -23,6 +23,9 @@ public class LoadComponent : ScriptableObject, LoadBehaviour
         SaveData.PlayerProfile.masterVolume = -40;
         SaveData.PlayerProfile.musicVolume = -40;
         SaveData.PlayerProfile.effectsVolume = -40;
+        SaveData.PlayerProfile.musicOn = true;
+        SaveData.PlayerProfile.effectsOn = true;
+
     }
 
     private void SetLevels()

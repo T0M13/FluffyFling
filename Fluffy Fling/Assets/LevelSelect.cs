@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using tomi.SaveSystem;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelSelect : MonoBehaviour
 {
@@ -42,7 +43,7 @@ public class LevelSelect : MonoBehaviour
     {
         for (int i = 0; i < levels.Length; i++)
         {
-            levels[i].index = i;
+            levels[i].index = i + 2;
         }
     }
 
@@ -54,5 +55,10 @@ public class LevelSelect : MonoBehaviour
     private void Load()
     {
         loadBeh.Load();
+    }
+
+    public void BackToMainMenu()
+    {
+        SceneManager.LoadScene(0);
     }
 }
