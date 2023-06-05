@@ -19,7 +19,7 @@ namespace tomi.SaveSystem
                 Directory.CreateDirectory(Application.persistentDataPath + "/saves");
             }
 
-            string path = Application.persistentDataPath + "/saves/" + saveName + ".deepbluestudio";
+            string path = Application.persistentDataPath + "/saves/" + saveName + ".milkstudio";
 
             FileStream file = File.Create(path);
 

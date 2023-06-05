@@ -71,6 +71,8 @@ public class Slingshot : MonoBehaviour
 
     private void SwipeStart(Vector2 position)
     {
+        if (GameManager.instance.Paused) return;
+
         startPosition = position;
         if (IsBirdClicked() && lastThrowBird == null)
         {
@@ -85,8 +87,10 @@ public class Slingshot : MonoBehaviour
 
     private void SwipeEnd(Vector2 position)
     {
+        if (GameManager.instance.Paused) return;
+
         endPosition = position;
-        if (!IsBirdClicked() && !isPulling && (state == SlingshotState.Idle ))
+        if (!IsBirdClicked() && !isPulling && (state == SlingshotState.Idle))
         {
             CameraSwipe();
         }
@@ -111,6 +115,8 @@ public class Slingshot : MonoBehaviour
 
     private void Update()
     {
+        if (GameManager.instance.Paused) return;
+
         currentPosition = inputManager.PrimaryPosition();
 
         PullBird();

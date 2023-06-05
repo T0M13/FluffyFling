@@ -7,8 +7,9 @@ namespace tomi.SaveSystem
     [System.Serializable]
     public class PlayerProfile
     {
-        public int coins;
-        public float timeScore;
+        public int[] scores;
+        public int[] stars;
+
 
         public int masterVolume;
         public int musicVolume;

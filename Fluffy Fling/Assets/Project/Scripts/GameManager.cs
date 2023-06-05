@@ -17,7 +17,14 @@ public class GameManager : MonoBehaviour
     [Header("Game")]
     [SerializeField] private bool gameOver;
     [SerializeField] private bool victory;
+    [SerializeField] private bool paused;
     [SerializeField] private int score;
+    [Header("Scores Needed")]
+    [SerializeField] private int oneStarScore;
+    [SerializeField] private int twoStarScore;
+    [SerializeField] private int threeStarScore;
+    [Header("Level Index")]
+    [SerializeField] private int levelIndex;
     //[Header("Player Stats")]
     [Header("Enemies Left")]
     [SerializeField] private List<GameObject> enemies;
@@ -28,10 +35,15 @@ public class GameManager : MonoBehaviour
     [Header("Save/Load")]
     [SerializeField] private SaveComponent saveBehaviour;
     [SerializeField] private LoadComponent loadBehaviour;
+    [Header("Loaded Stats")]
+    [SerializeField] private int savedScore;
+    [SerializeField] private int savedStars;
 
     public Action OnReload;
 
     public bool GameOver { get => gameOver; set => gameOver = value; }
+    public bool Paused { get => paused; set => paused = value; }
+    public bool Victory { get => victory; set => victory = value; }
 
     public Action OnSave;
     public Action OnLoad;
@@ -80,16 +92,25 @@ public class GameManager : MonoBehaviour
         Load();
         Save();
 
+        Time.timeScale = 1;
+        levelIndex = SceneManager.GetActiveScene().buildIndex - 2;
+
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
 
         mainCam = Camera.main.GetComponent<FollowCamera>();
         slingshot = FindObjectOfType<Slingshot>();
         birdsManager = FindObjectOfType<BirdsManager>();
         GameOver = false;
+
+
+        savedScore = SaveData.PlayerProfile.scores[levelIndex];
+        savedStars = SaveData.PlayerProfile.stars[levelIndex];
+
     }
 
     public void AddScore(int score)
     {
+        if (victory || gameOver) return;
         this.score += score;
         ingameUIManager.CurrentScoreUI.text = this.score.ToString();
     }
@@ -111,11 +132,12 @@ public class GameManager : MonoBehaviour
 
     public void CheckEnemiesLeft()
     {
-        if (victory || gameOver) return;
+        if (Victory || gameOver) return;
         if (enemies.Count <= 0)
         {
             Debug.Log("Victory");
-            victory = true;
+            Victory = true;
+            CallGameOver();
         }
         else
         {
@@ -132,6 +154,7 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("Game Over");
             gameOver = true;
+            CallGameOver();
         }
         else
         {
@@ -141,10 +164,58 @@ public class GameManager : MonoBehaviour
 
     private void CallGameOver()
     {
+        CalculateStars();
+        CalculateScores();
         Save();
-        GameOver = true;
-        Debug.Log("Game Over");
     }
+
+    public void AfterGameOver()
+    {
+        CalculateStars();
+        CalculateScores();
+        Save();
+    }
+
+    private void CalculateScores()
+    {
+        if (SaveData.PlayerProfile.scores[levelIndex] < score)
+            SaveData.PlayerProfile.scores[levelIndex] = score;
+        else
+            return;
+
+    }
+
+    private void CalculateStars()
+    {
+        if (gameOver)
+        {
+            if (SaveData.PlayerProfile.stars[levelIndex] > 0) return;
+            SaveData.PlayerProfile.stars[levelIndex] = 0;
+            return;
+        }
+
+        if (score < oneStarScore)
+        {
+            if (SaveData.PlayerProfile.stars[levelIndex] > 0) return;
+            SaveData.PlayerProfile.stars[levelIndex] = 0;
+        }
+        if (score >= oneStarScore)
+        {
+            if (SaveData.PlayerProfile.stars[levelIndex] > 1) return;
+            SaveData.PlayerProfile.stars[levelIndex] = 1;
+        }
+        if (score >= twoStarScore)
+        {
+            if (SaveData.PlayerProfile.stars[levelIndex] > 2) return;
+            SaveData.PlayerProfile.stars[levelIndex] = 2;
+        }
+        if (score >= threeStarScore)
+        {
+            if (SaveData.PlayerProfile.stars[levelIndex] > 3) return;
+            SaveData.PlayerProfile.stars[levelIndex] = 3;
+        }
+    }
+
 
     //private void ThrowBird(GameObject gameObject, BirdState state)
     //{
@@ -169,7 +240,24 @@ public class GameManager : MonoBehaviour
         CheckEnemiesLeft();
     }
 
-    private void RestartGame()
+    public void PauseGame()
+    {
+        Time.timeScale = 0;
+        Paused = true;
+    }
+
+    public void ResumeGame()
+    {
+        Time.timeScale = 1;
+        Paused = false;
+    }
+
+    public void StartGameMainMenu()
+    {
+        SceneManager.LoadScene(1); // Level Select
+    }
+
+    public void RestartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         Debug.Log("Restarting");
@@ -177,7 +265,10 @@ public class GameManager : MonoBehaviour
 
     private void Save()
     {
+
         saveBehaviour.Save();
+        savedScore = SaveData.PlayerProfile.scores[levelIndex];
+        savedStars = SaveData.PlayerProfile.stars[levelIndex];
     }
 
     private void Load()

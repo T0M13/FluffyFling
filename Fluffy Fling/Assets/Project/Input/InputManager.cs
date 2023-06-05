@@ -60,13 +60,13 @@ public class InputManager : MonoBehaviour
 
     private void StartTouchPrimary(InputAction.CallbackContext context)
     {
-        if (OnStartTouch != null) OnStartTouch(Utils.ScreenToWorld(mainCamera, playerControls.Touch.PrimaryPosition.ReadValue<Vector2>()));
+            if (OnStartTouch != null) OnStartTouch(Utils.ScreenToWorld(mainCamera, playerControls.Touch.PrimaryPosition.ReadValue<Vector2>()));
     }
 
 
     private void EndTouchPrimary(InputAction.CallbackContext context)
     {
-        if (OnEndTouch != null) OnEndTouch(Utils.ScreenToWorld(mainCamera, playerControls.Touch.PrimaryPosition.ReadValue<Vector2>()));
+            if (OnEndTouch != null) OnEndTouch(Utils.ScreenToWorld(mainCamera, playerControls.Touch.PrimaryPosition.ReadValue<Vector2>()));
     }
 
     public Vector2 PrimaryPosition()
