@@ -4,7 +4,7 @@ using tomi.SaveSystem;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MainMenuUI : MonoBehaviour
+public class SoundTogglers : MonoBehaviour
 {
     [SerializeField] private Toggle soundToggle;
     [SerializeField] private Toggle musicToggle;
