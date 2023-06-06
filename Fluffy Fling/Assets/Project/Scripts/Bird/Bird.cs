@@ -19,6 +19,7 @@ public class Bird : MonoBehaviour
     [SerializeField] protected BirdState state;
     [SerializeField] private Vector3 colliderOffset = new Vector3(-0.25f, 0, 0);
     [SerializeField] private ParticleSystem impactEffect;
+    [SerializeField] private GameObject disappearEffect;
 
     public BirdState State { get => state; set => state = value; }
     public Rigidbody Body { get => body; set => body = value; }
@@ -99,6 +100,8 @@ public class Bird : MonoBehaviour
         GameManager.instance.OnDeath?.Invoke(gameObject);
         parent.LastThrowBird = null;
         yield return new WaitForSeconds(deathDelay);
+        disappearEffect.SetActive(true);
+        disappearEffect.transform.SetParent(null);
         Destroy(gameObject);
     }
 
