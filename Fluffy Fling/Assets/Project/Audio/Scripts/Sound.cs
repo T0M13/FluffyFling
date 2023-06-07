@@ -19,6 +19,7 @@ namespace tomi.Audio
         public float pitch;
 
         public bool loop = false;
+        public bool deleteAfter = true;
         public float spatialBand;
 
         public AudioTyp type;

@@ -108,6 +108,9 @@ public class GameManager : MonoBehaviour
         savedScore = SaveData.PlayerProfile.scores[levelIndex];
         savedStars = SaveData.PlayerProfile.stars[levelIndex];
 
+        AudioManager.instance.ResumeSong();
+        AudioManager.instance.Play("forestMusic");
+
     }
 
     public void AddScore(int score)

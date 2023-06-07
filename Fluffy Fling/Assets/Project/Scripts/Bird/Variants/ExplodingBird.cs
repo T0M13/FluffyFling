@@ -30,6 +30,10 @@ public class ExplodingBird : Bird
 
     private void Ability()
     {
+
+        if (AudioManager.instance)
+            AudioManager.instance.Play("explosionSFX");
+
         Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
         explosionEffect.SetActive(true);
         explosionEffect.transform.SetParent(null);

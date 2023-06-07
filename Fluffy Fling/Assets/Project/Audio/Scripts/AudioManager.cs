@@ -23,6 +23,8 @@ public class AudioManager : MonoBehaviour
 
     [SerializeField] private bool prevSong = false;
     [SerializeField] private bool nextSong = false;
+    [SerializeField] private bool musicPaused;
+
 
     private const string masterVolName = "Master";
     private const string musicVolName = "Music";
@@ -96,6 +98,7 @@ public class AudioManager : MonoBehaviour
 
     private void Update()
     {
+        if (musicPaused) return;
         if (songs.Length <= 0) return;
         if (audioSource.isPlaying) return;
         else
@@ -116,10 +119,31 @@ public class AudioManager : MonoBehaviour
         {
             Debug.Log("Can't find Sound");
         }
-        s.source.Play();
-        if (s.loop) return;
+            s.source.Play();
+        if (s.loop || !s.deleteAfter) return;
         StartCoroutine(RemoveAfterPlayed(s.clip.length, s.source));
     }
+
+    public void PlayGameOver(string sound)
+    {
+        Sound s = Array.Find(sounds, item => item.name == sound);
+        if (s == null)
+        {
+            Debug.Log("Can't find Sound");
+        }
+        s.source.Play();
+        StartCoroutine(ResumeAfterGameOver(s));
+    }
+
+    public IEnumerator ResumeAfterGameOver(Sound sound)
+    {
+        float temp = audioSource.volume;
+        audioSource.volume = 0.15f;
+        yield return new WaitForSecondsRealtime(sound.clip.length);
+        audioSource.volume = temp;
+        StartCoroutine(RemoveAfterPlayed(sound.clip.length, sound.source));
+    }
+
 
     IEnumerator RemoveAfterPlayed(float length, AudioSource audioSource)
     {
@@ -334,6 +358,7 @@ public class AudioManager : MonoBehaviour
     /// </summary>
     public void PauseSong()
     {
+        musicPaused = true;
         audioSource.Pause();
     }
 
@@ -342,6 +367,7 @@ public class AudioManager : MonoBehaviour
     /// </summary>
     public void ResumeSong()
     {
+        musicPaused = false;
         audioSource.Play();
     }
 

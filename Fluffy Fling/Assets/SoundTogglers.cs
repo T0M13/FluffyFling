@@ -22,6 +22,7 @@ public class SoundTogglers : MonoBehaviour
     {
         if (!isLoading)
         {
+            AudioManager.instance.Play("UItoggle");
             AudioManager.instance.ToggleSound();
         }
     }
@@ -30,6 +31,7 @@ public class SoundTogglers : MonoBehaviour
     {
         if (!isLoading)
         {
+            AudioManager.instance.Play("UItoggle");
             AudioManager.instance.ToggleMusic();
         }
     }

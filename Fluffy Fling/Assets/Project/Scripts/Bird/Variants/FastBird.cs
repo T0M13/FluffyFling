@@ -24,6 +24,9 @@ public class FastBird : Bird
 
     private void Ability()
     {
+        if (AudioManager.instance)
+            AudioManager.instance.Play("fastAbility");
+        
         abilityEffect.SetActive(true);
         abilityEffect.transform.SetParent(null);
 

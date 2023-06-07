@@ -30,7 +30,9 @@ public class UngravityBird : Bird
 
     private void Ability()
     {
-
+        if (AudioManager.instance)
+            AudioManager.instance.Play("ungravityAbility");
+        
         abilityEffect.transform.position = transform.position + ungravityOffset;
         abilityEffect.SetActive(true);
         abilityEffect.transform.SetParent(null);

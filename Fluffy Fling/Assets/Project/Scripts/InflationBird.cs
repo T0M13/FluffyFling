@@ -36,6 +36,9 @@ public class InflationBird : Bird
 
     private void Ability()
     {
+        if (AudioManager.instance)
+            AudioManager.instance.Play("inflationSFX");
+        
         abilityEffect.SetActive(true);
         abilityEffect.transform.SetParent(null);
         transform.localScale = inflationSize;

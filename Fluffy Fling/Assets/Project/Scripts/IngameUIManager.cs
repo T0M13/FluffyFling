@@ -49,10 +49,12 @@ public class IngameUIManager : MonoBehaviour
         if (victory)
         {
             gameOverText.text = "Victory";
+            AudioManager.instance.PlayGameOver("victory");
         }
         else
         {
             gameOverText.text = "Game Over";
+            AudioManager.instance.PlayGameOver("gameOver");
         }
 
         gameOverCanvas.SetActive(true);

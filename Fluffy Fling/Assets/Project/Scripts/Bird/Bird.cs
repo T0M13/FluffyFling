@@ -102,6 +102,8 @@ public class Bird : MonoBehaviour
         yield return new WaitForSeconds(deathDelay);
         disappearEffect.SetActive(true);
         disappearEffect.transform.SetParent(null);
+        if (AudioManager.instance)
+            AudioManager.instance.Play("poofSFX");
         Destroy(gameObject);
     }
 

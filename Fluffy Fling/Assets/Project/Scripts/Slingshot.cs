@@ -224,6 +224,9 @@ public class Slingshot : MonoBehaviour
     private void ThrowBird(float distance)
     {
 
+        if (AudioManager.instance)
+            AudioManager.instance.Play("slingshotRelease");
+
         CalculateTrajectory(lastPullTrajectory, lastBirdTrail);
         SetLastBirdTrailActive(true);
         isPulling = false;

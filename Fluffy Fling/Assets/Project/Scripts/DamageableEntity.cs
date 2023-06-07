@@ -26,7 +26,7 @@ public class DamageableEntity : MonoBehaviour
     [SerializeField] private ScorePopUp scorePopUp;
     [SerializeField] private ParticleSystem impactEffect;
     [SerializeField] private ParticleSystem destroyEffect;
-
+    private bool isSoundPlayed = false;
     private void Awake()
     {
         GetCollider();
@@ -139,12 +139,20 @@ public class DamageableEntity : MonoBehaviour
                 ContactPoint contact = collision.contacts[0];
                 impactEffect.transform.position = contact.point;
                 impactEffect.Play();
+
+                    if (AudioManager.instance)
+                        AudioManager.instance.Play("impactSFX");
+
             }
         }
     }
 
+
+
     private void DestroyEntity()
     {
+        if (AudioManager.instance)
+            AudioManager.instance.Play("poofSFX");
         Destroy(gameObject);
     }
 

@@ -142,12 +142,18 @@ public class EnemyEntity : MonoBehaviour
                 ContactPoint contact = collision.contacts[0];
                 impactEffect.transform.position = contact.point;
                 impactEffect.Play();
+
+
+                if (AudioManager.instance)
+                    AudioManager.instance.Play("impactSFX");
             }
         }
     }
 
     private void DestroyEntity()
     {
+        if (AudioManager.instance)
+            AudioManager.instance.Play("poofSFX");
         Destroy(gameObject);
     }
 

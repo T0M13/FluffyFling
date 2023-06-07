@@ -39,6 +39,9 @@ public class GhostBird : Bird
 
     private void Ability()
     {
+        if (AudioManager.instance)
+            AudioManager.instance.Play("ghostAbility");
+
         Physics.IgnoreLayerCollision(birdLayer, obstacleLayer, true);
         ghostEffect.SetActive(true);
         ghostEffect.transform.SetParent(null);
