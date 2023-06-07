@@ -47,17 +47,147 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioMixer: {fileID: 24100000, guid: e51e6f84945a2f848b0eab571f528298, type: 2}
   audioSource: {fileID: 5607157440213826452}
-  songs: []
+  songs:
+  - {fileID: 8300000, guid: c0b9626e0e903bd42b1cfb8d306b3926, type: 3}
   prevSong: 0
   nextSong: 0
+  musicPaused: 0
   masterGroup: {fileID: 24300002, guid: e51e6f84945a2f848b0eab571f528298, type: 2}
   musicGroup: {fileID: -76637508257392862, guid: e51e6f84945a2f848b0eab571f528298,
     type: 2}
   effectsGroup: {fileID: 4707923197465392448, guid: e51e6f84945a2f848b0eab571f528298,
     type: 2}
-  sounds: []
+  sounds:
+  - name: ghostAbility
+    clip: {fileID: 8300000, guid: 808d0cbf9f193ae4389d0c690efaa9a8, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    deleteAfter: 1
+    spatialBand: 1
+    type: 2
+    source: {fileID: 0}
+  - name: slingshotRelease
+    clip: {fileID: 8300000, guid: ceec465e167eee646b6a34909d231e6d, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    deleteAfter: 0
+    spatialBand: 1
+    type: 2
+    source: {fileID: 0}
+  - name: impactSFX
+    clip: {fileID: 8300000, guid: 6ed44cd1d69ab9143b7b599a46ff7ad4, type: 3}
+    volume: 1
+    pitch: 1.5
+    loop: 0
+    deleteAfter: 0
+    spatialBand: 1
+    type: 2
+    source: {fileID: 0}
+  - name: gameOver
+    clip: {fileID: 8300000, guid: 1bede3e15ffb1f44bb0058aee29bc4f4, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    deleteAfter: 1
+    spatialBand: 0
+    type: 2
+    source: {fileID: 0}
+  - name: victory
+    clip: {fileID: 8300000, guid: 37592f27249023d4da69a1dd3d504090, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    deleteAfter: 1
+    spatialBand: 0
+    type: 2
+    source: {fileID: 0}
+  - name: mainMenuMusic
+    clip: {fileID: 8300000, guid: b44952a6bb93a524d8e5e74f629ff232, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 1
+    deleteAfter: 0
+    spatialBand: 0
+    type: 1
+    source: {fileID: 0}
+  - name: poofSFX
+    clip: {fileID: 8300000, guid: d9682de2278549d4fa56d0bb0136a684, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    deleteAfter: 0
+    spatialBand: 1
+    type: 2
+    source: {fileID: 0}
+  - name: explosionSFX
+    clip: {fileID: 8300000, guid: 652eb6be8549e574b94067728066ad1a, type: 3}
+    volume: 1
+    pitch: 1.2
+    loop: 0
+    deleteAfter: 0
+    spatialBand: 1
+    type: 2
+    source: {fileID: 0}
+  - name: forestMusic
+    clip: {fileID: 8300000, guid: 1eb9bb4183d32c8468920963d968998d, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 1
+    deleteAfter: 0
+    spatialBand: 0
+    type: 1
+    source: {fileID: 0}
+  - name: ungravityAbility
+    clip: {fileID: 8300000, guid: 4290163e07b391149be1710738a058eb, type: 3}
+    volume: 0.5
+    pitch: 1.5
+    loop: 0
+    deleteAfter: 0
+    spatialBand: 1
+    type: 2
+    source: {fileID: 0}
+  - name: fastAbility
+    clip: {fileID: 8300000, guid: 6e921f6e0edd30b42ad2f90ff1bae792, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    deleteAfter: 0
+    spatialBand: 1
+    type: 2
+    source: {fileID: 0}
+  - name: inflationSFX
+    clip: {fileID: 8300000, guid: 63f6c8e3b3291804d96d84484a18dd2d, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    deleteAfter: 0
+    spatialBand: 1
+    type: 2
+    source: {fileID: 0}
+  - name: UItoggle
+    clip: {fileID: 8300000, guid: 6956f1096600fb842bb3a4a15ca807f1, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    deleteAfter: 0
+    spatialBand: 0
+    type: 0
+    source: {fileID: 0}
+  - name: UIButton
+    clip: {fileID: 8300000, guid: 3512a93304602f243afcdcc123519045, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    deleteAfter: 0
+    spatialBand: 0
+    type: 2
+    source: {fileID: 0}
   saveBehaviour: {fileID: 11400000, guid: 0160b4a5516637d498cec83bb7a5a686, type: 2}
   loadBehaviour: {fileID: 11400000, guid: 28ea242922f97cc4c8da32999246b205, type: 2}
+  musicOn: 0
+  effectsOn: 0
 --- !u!82 &5607157440213826452
 AudioSource:
   m_ObjectHideFlags: 0
@@ -71,7 +201,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
