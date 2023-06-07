@@ -1799,7 +1799,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &280533880
 GameObject:
@@ -2722,8 +2722,9 @@ Transform:
   - {fileID: 1553624896}
   - {fileID: 1724516805}
   - {fileID: 700745561}
+  - {fileID: 3696007234998651967}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &347115902
 PrefabInstance:
@@ -3272,6 +3273,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2060071755}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: UIButton
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!222 &427996230
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3402,7 +3415,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &450348540 stripped
 Transform:
@@ -4348,7 +4361,7 @@ RectTransform:
   - {fileID: 1010548820}
   - {fileID: 1279609385}
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -8620,6 +8633,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 2060071755}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: UIButton
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!222 &1149270952
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10483,7 +10508,7 @@ Transform:
   m_Children:
   - {fileID: 123146543}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1429315810
 GameObject:
@@ -15167,6 +15192,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2060071755}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: UIButton
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!222 &2022404754
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -15475,6 +15512,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 707e6ab3f6d25d447b9861be50356c4d, type: 3}
+--- !u!114 &2060071755 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5607157440213826443, guid: 707e6ab3f6d25d447b9861be50356c4d,
+    type: 3}
+  m_PrefabInstance: {fileID: 2060071754}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6130f2f51568c4149aad36f54bc021fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2063728626
 GameObject:
   m_ObjectHideFlags: 0
@@ -16587,7 +16636,7 @@ Transform:
   - {fileID: 5282403492216683917}
   - {fileID: 8931185372326002569}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 81.3, z: 0}
 --- !u!54 &735638125858652448
 Rigidbody:
@@ -17204,6 +17253,7 @@ MonoBehaviour:
   state: 0
   colliderOffset: {x: -0.25, y: 0, z: 0}
   impactEffect: {fileID: 5282403492216683916}
+  disappearEffect: {fileID: 0}
   birdLayer: 6
   obstacleLayer: 8
   normalMat: {fileID: 2100000, guid: e0e44149a5458054fab50a4207821ae2, type: 2}
@@ -17708,6 +17758,7 @@ MonoBehaviour:
   victory: 0
   paused: 0
   score: 0
+  stars: 0
   oneStarScore: 0
   twoStarScore: 0
   threeStarScore: 0
@@ -17731,7 +17782,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2125610048981729555
 MonoBehaviour:
@@ -17760,6 +17811,7 @@ MonoBehaviour:
   state: 0
   colliderOffset: {x: -0.25, y: 0, z: 0}
   impactEffect: {fileID: 5314994185040275138}
+  disappearEffect: {fileID: 0}
   speedMultiplier: 3
   speedLimit: {x: 60, y: 60, z: 0}
   currentVelocity: {x: 0, y: 0, z: 0}
@@ -17999,7 +18051,7 @@ Transform:
   - {fileID: 3852527101165316434}
   - {fileID: 1509253071}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2638565230333059511
 PrefabInstance:
@@ -18326,7 +18378,7 @@ Transform:
   - {fileID: 5314994185040275139}
   - {fileID: 279450513074526840}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 62.05, z: 0}
 --- !u!33 &3577218082397128740
 MeshFilter:
@@ -18352,7 +18404,7 @@ Transform:
   - {fileID: 2638565230333059513}
   - {fileID: 6383826144786818277}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!199 &3696007234998651904
 ParticleSystemRenderer:
@@ -23515,13 +23567,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3696007234998651966}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 10.727133, y: -0.95, z: 0}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 4.7794895, y: -6.7028837, z: 9.949602}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 24
+  m_Father: {fileID: 346970415}
+  m_RootOrder: 121
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!4 &3852527101165316434
 Transform:
@@ -25982,6 +26034,7 @@ MonoBehaviour:
   state: 0
   colliderOffset: {x: -0.25, y: 0, z: 0}
   impactEffect: {fileID: 1275944173981164840}
+  disappearEffect: {fileID: 0}
   inflationSize: {x: 2.5, y: 2.5, z: 2.5}
   newMass: 30
   abilityEffect: {fileID: 5015227388576733260}
@@ -27199,7 +27252,7 @@ Transform:
   - {fileID: 1275944173981164841}
   - {fileID: 5015227388576733261}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 62.05, z: 0}
 --- !u!114 &6557872444875287071
 MonoBehaviour:
@@ -27228,6 +27281,7 @@ MonoBehaviour:
   state: 0
   colliderOffset: {x: -0.25, y: 0, z: 0}
   impactEffect: {fileID: 1509253068}
+  disappearEffect: {fileID: 0}
 --- !u!54 &6829653438379483675
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -27387,7 +27441,7 @@ Transform:
   - {fileID: 9009396770071988760}
   - {fileID: 4431247571430392913}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 89.2, z: 0}
 --- !u!4 &7433028921464697598
 Transform:
@@ -28034,7 +28088,7 @@ Transform:
   - {fileID: 7862143336392344614}
   - {fileID: 7862143337185180124}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &7862143337185180124
 Transform:
@@ -29597,7 +29651,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8327246159815068129
 MonoBehaviour:
@@ -29685,6 +29739,7 @@ MonoBehaviour:
   state: 0
   colliderOffset: {x: -0.25, y: 0, z: 0}
   impactEffect: {fileID: 6383826144786818276}
+  disappearEffect: {fileID: 0}
   explosionDamage: 1
   explosionForce: 100
   explosionRadius: 3
@@ -30596,6 +30651,7 @@ MonoBehaviour:
   state: 0
   colliderOffset: {x: -0.25, y: 0, z: 0}
   impactEffect: {fileID: 9009396770071988759}
+  disappearEffect: {fileID: 0}
   ungravityForce: 3
   ungravityRadius: 5
   ungravityOffset: {x: 1.5, y: -0.2, z: 0}
