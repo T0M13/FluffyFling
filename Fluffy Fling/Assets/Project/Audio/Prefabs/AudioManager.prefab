@@ -63,7 +63,7 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     loop: 0
-    deleteAfter: 1
+    deleteAfter: 0
     spatialBand: 1
     type: 2
     source: {fileID: 0}
@@ -90,7 +90,7 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     loop: 0
-    deleteAfter: 1
+    deleteAfter: 0
     spatialBand: 0
     type: 2
     source: {fileID: 0}
@@ -99,7 +99,7 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     loop: 0
-    deleteAfter: 1
+    deleteAfter: 0
     spatialBand: 0
     type: 2
     source: {fileID: 0}

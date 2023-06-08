@@ -20,6 +20,7 @@ public class Bird : MonoBehaviour
     [SerializeField] private Vector3 colliderOffset = new Vector3(-0.25f, 0, 0);
     [SerializeField] private ParticleSystem impactEffect;
     [SerializeField] private GameObject disappearEffect;
+    [SerializeField] private ScorePopUp scorePopUp;
 
     public BirdState State { get => state; set => state = value; }
     public Rigidbody Body { get => body; set => body = value; }
@@ -47,6 +48,12 @@ public class Bird : MonoBehaviour
         isDead = false;
         State = BirdState.BeforeThrown;
         SetAnimation(GetRandomAnimation());
+    }
+
+    public void SetScoreOn(int score)
+    {
+        scorePopUp.SetScore(score);
+        scorePopUp.gameObject.SetActive(true);
     }
 
     private void Update()

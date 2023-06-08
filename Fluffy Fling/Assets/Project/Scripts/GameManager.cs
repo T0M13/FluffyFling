@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int oneStarScore;
     [SerializeField] private int twoStarScore;
     [SerializeField] private int threeStarScore;
+    [SerializeField] private int birdScore;
     [Header("Level Index")]
     [SerializeField] private int levelIndex;
     //[Header("Player Stats")]
@@ -167,8 +168,30 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void CalculateBirdsLeft()
+    {
+        if (birdsManager.SpawnedBirds.Count > 0)
+        {
+            foreach (GameObject bird in birdsManager.SpawnedBirds)
+            {
+                Bird birdScript = bird.GetComponent<Bird>();
+                birdScript.SetScoreOn(birdScore);
+                this.score += birdScore;
+                ingameUIManager.CurrentScoreUI.text = this.score.ToString();
+            }
+        }
+    }
+
     private void CallGameOver()
     {
+        StartCoroutine(CallGameOverLogic());
+    }
+
+    private IEnumerator CallGameOverLogic()
+    {
+        yield return new WaitForSeconds(.5f);
+        CalculateBirdsLeft();
+        yield return new WaitForSeconds(2f);
         CalculateStars();
         CalculateScores();
         Save();
@@ -177,7 +200,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator CallGameOverUI(int score, int stars, bool victory)
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(2.5f);
         ingameUIManager.ShowGameOverScreen(score, stars, victory);
         Time.timeScale = 0;
     }
@@ -193,7 +216,7 @@ public class GameManager : MonoBehaviour
 
     private void CalculateStars()
     {
-        if (gameOver)
+        if (gameOver && !victory)
         {
             stars = 0;
             if (SaveData.PlayerProfile.stars[levelIndex] > 0) return;
@@ -295,5 +318,10 @@ public class GameManager : MonoBehaviour
     private void Load()
     {
         loadBehaviour.Load();
+    }
+
+    public void ExitGame()
+    {
+        Application.Quit();
     }
 }

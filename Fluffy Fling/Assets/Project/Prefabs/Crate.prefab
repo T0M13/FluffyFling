@@ -142,6 +142,8 @@ MonoBehaviour:
   fallDamage: 10
   upThresshold: 18
   upDamage: 1000
+  rightThreshhold: 45
+  leftThreshhold: 7.25
   collisionVelocity: 0
   scoreMin: 50
   scoreMax: 300
