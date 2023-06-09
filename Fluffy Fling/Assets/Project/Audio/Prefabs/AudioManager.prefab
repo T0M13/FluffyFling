@@ -136,7 +136,7 @@ MonoBehaviour:
     pitch: 1
     loop: 1
     deleteAfter: 0
-    spatialBand: 0
+    spatialBand: 1
     type: 1
     source: {fileID: 0}
   - name: ungravityAbility

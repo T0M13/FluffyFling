@@ -92,6 +92,7 @@ public class GameManager : MonoBehaviour
             instance = this;
         }
 
+        ResumeGame();
         Load();
         Save();
 
@@ -103,12 +104,19 @@ public class GameManager : MonoBehaviour
         mainCam = Camera.main.GetComponent<FollowCamera>();
         slingshot = FindObjectOfType<Slingshot>();
         birdsManager = FindObjectOfType<BirdsManager>();
+
         GameOver = false;
+        Victory = false;
+        paused = false;
+        stars = 0;
+        score = 0;
+
 
         if (levelIndex < 0) return;
         savedScore = SaveData.PlayerProfile.scores[levelIndex];
         savedStars = SaveData.PlayerProfile.stars[levelIndex];
 
+        if (!AudioManager.instance) return;
         AudioManager.instance.ResumeSong();
         AudioManager.instance.Play("forestMusic");
 
@@ -147,25 +155,24 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            if (slingshot.GetCurrentBird() == null)
-                birdChecking = StartCoroutine(CheckBirdsLeft());
+            if (slingshot.GetCurrentBird() == null || birdsManager.SpawnedBirds.Count <= 0)
+                birdChecking = StartCoroutine(NoBirdsLeft());
+            else
+            {
+                //Birds Left to shoot
+            }
+
         }
     }
 
-    private IEnumerator CheckBirdsLeft()
+    private IEnumerator NoBirdsLeft()
     {
         yield return new WaitForSeconds(waitCheckBirds);
 
-        if (birdsManager.SpawnedBirds.Count <= 0)
-        {
-            Debug.Log("Game Over");
-            gameOver = true;
-            CallGameOver();
-        }
-        else
-        {
-            //Birds Left to shoot
-        }
+        Debug.Log("Game Over");
+        gameOver = true;
+        CallGameOver();
+
     }
 
     private void CalculateBirdsLeft()
@@ -318,6 +325,11 @@ public class GameManager : MonoBehaviour
     private void Load()
     {
         loadBehaviour.Load();
+    }
+
+    public void OpenMilkStudios()
+    {
+        Application.OpenURL("https://milk-studios.at");
     }
 
     public void ExitGame()
