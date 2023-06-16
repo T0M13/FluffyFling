@@ -168,11 +168,12 @@ public class GameManager : MonoBehaviour
     private IEnumerator NoBirdsLeft()
     {
         yield return new WaitForSeconds(waitCheckBirds);
-
-        Debug.Log("Game Over");
-        gameOver = true;
-        CallGameOver();
-
+        if (birdsManager.SpawnedBirds.Count <= 0)
+        {
+            Debug.Log("Game Over");
+            gameOver = true;
+            CallGameOver();
+        }
     }
 
     private void CalculateBirdsLeft()
